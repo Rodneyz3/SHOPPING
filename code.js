@@ -1,0 +1,147 @@
+const figurine = [
+  {
+    name: "Anthony Edwards",
+    position: "SG",
+    PPG: 28.8,
+    team: "Minnesota Timberwolves",
+    isAllStar: false,
+  },
+  {
+    name: "Ja Morant",
+    position: "PG",
+    PPG: 19.5,
+    team: "Memphis Grizzlies",
+    isAllStar: false,
+  },
+  {
+    name: "Jayson Tatum",
+    position: "SF",
+    PPG: 21.8,
+    team: "Boston Celtics",
+    isAllStar: false,
+  },
+  {
+    name: "Ausar Thompson",
+    position: "SF",
+    PPG: 9.9,
+    team: "Detroit Pistons",
+    isAllStar: false,
+  },
+  {
+    name: "Luka Doncic",
+    PPG: 33.5,
+    team: "Los Angeles Lakers",
+    isAllStar: true,
+  },
+  {
+    name: "Jalen Duren",
+    position: "C",
+    PPG: 19.5,
+    team: "Detroit Pistons",
+    isAllStar: true,
+  },
+  {
+    name: "Victor Wembanyama",
+    position: "C",
+    PPG: 25,
+    team: "San Antonio Spurs",
+    isAllStar: true,
+  },
+  {
+    name: "Shai Gilgeous-Alexander",
+    position: "PG",
+    PPG: 31.1,
+    team: "Oklahoma City Thunder",
+    isAllStar: true,
+  },
+  {
+    name: "Jalen Brunson",
+    position: "PG",
+    PPG: 26,
+    team: "New York Knicks",
+    isAllStar: true,
+  },
+  {
+    name: "Kevin Durant",
+    position: "PF",
+    PPG: 26,
+    team: "Houston Rockets",
+    isAllStar: true,
+  },
+  {
+    name: "Donovan Mitchell",
+    position: "SG",
+    PPG: 27.9,
+    team: "Cleveland Cavaliers",
+    isAllStar: true,
+  },
+  {
+    name: "Jalen Johnson",
+    position: "PF",
+    PPG: 22.5,
+    team: "Atlanta Hawks",
+    isAllStar: true,
+  },
+  {
+    name: "Nikola Jokic",
+    position: "C",
+    PPG: 27.7,
+    team: "Denver Nuggets",
+    isAllStar: true,
+  },
+  {
+    name: "Chet Holmgren",
+    position: "C",
+    PPG: 17.1,
+    team: "Oklahoma City Thunder",
+    isAllStar: true,
+  },
+  {
+    name: "Tyler Herro",
+    position: "SG",
+    PPG: 20.5,
+    team: "Miami Heat",
+    isAllStar: false,
+  },
+  {
+    name: "Mikal Bridges",
+    position: "SG",
+    PPG: 14.4,
+    team: "New York Knicks",
+    isAllStar: false,
+  },
+  {
+    name: "Cooper Flagg",
+    position: "SF",
+    PPG: 21,
+    team: "Dallas Mavericks",
+    isAllStar: false,
+  },
+  {
+    name: "Jalen Williams",
+    position: "SF",
+    PPG: 17.1,
+    team: "Oklahoma City Thunder",
+    isAllStar: false,
+  },
+  {
+    name: "Patrick Williams",
+    position: "PF",
+    PPG: 7,
+    team: "Chicago Bulls",
+    isAllStar: false,
+  },
+  {
+    name: "Jabari Smith Jr.",
+    position: "PF",
+    PPG: 15.8,
+    team: "Houston Rockets",
+    isAllStar: false,
+  },
+];
+
+function shoppingcart() {
+  let total = 0;
+  let cart = [];
+  console.log(`HELLO, here are the figurines for sale: `);
+}
