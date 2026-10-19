@@ -161,37 +161,22 @@ const figurine = [
   },
 ];
 
-function shoppingcart() {
+function shoppingcart(chosen) {
   let total = 0;
   let cart = [];
+  let index = 0;
   console.log(`HELLO, here are the figurines for sale: `);
   for (let i = 0; i < figurine.length; i++) {
     console.log(
       `${figurine[i].Name} - ${figurine[i].Position} - ${figurine[i].Team} - $${figurine[i].Price}`,
     );
   }
-
-  while (true) {
-    let choice = prompt("Hello, would you like to filter your items?(yes/no)");
-    if (choice === "yes") {
-      let question = prompt(
-        "Would you like to filter by position, team, PPG, price, or all star?(Type Position, Team, PPG, Price, or All Star)",
-      );
-      if (question === "Position") {
-        let position = prompt(
-          "What position would you like to filter by?(Type PG, SG, SF, PF, or C)",
-        );
-        const filteredByPosition = figurine.filter(
-          (item) => item.Position === position,
-        );
-        console.log(`Here are the figurines that match your filter: `);
-        for (let i = 0; i < filteredByPosition.length; i++) {
-          console.log(
-            `${filteredByPosition[i].Name} - ${filteredByPosition[i].Position} - ${filteredByPosition[i].Team} - $${filteredByPosition[i].Price}`,
-          );
-        }
-      }
+  for (i = 0; i < figurine.length; i++) {
+    if ((chosen = figurine[i].Name)) {
+      index = i;
+      cart.push(chosen);
+      total += figurine[i].Price;
     }
   }
 }
-shoppingcart();
+shoppingcart("Luka Doncic");
