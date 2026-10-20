@@ -161,22 +161,16 @@ const figurine = [
   },
 ];
 
-function shoppingcart(chosen) {
+const cart = {};
+
+function shoppingcart(stuff) {
   let total = 0;
-  let cart = [];
-  let index = 0;
-  console.log(`HELLO, here are the figurines for sale: `);
-  for (let i = 0; i < figurine.length; i++) {
-    console.log(
-      `${figurine[i].Name} - ${figurine[i].Position} - ${figurine[i].Team} - $${figurine[i].Price}`,
-    );
-  }
-  for (i = 0; i < figurine.length; i++) {
-    if ((chosen = figurine[i].Name)) {
-      index = i;
-      cart.push(chosen);
-      total += figurine[i].Price;
-    }
+
+  if (cart[stuff.name]) {
+    cart[stuff.name].qty++;
+  } else {
+    cart[stuff.name] = stuff;
   }
 }
-shoppingcart("Luka Doncic");
+
+shoppingcart({ Name: "Jalen Williams", pri });
