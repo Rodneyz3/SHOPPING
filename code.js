@@ -6,6 +6,7 @@ const figurine = [
     Team: "Minnesota Timberwolves",
     Price: 88.92,
     IsAllStar: false,
+    Stock: 2,
   },
   {
     Name: "Ja Morant",
@@ -14,6 +15,7 @@ const figurine = [
     Team: "Memphis Grizzlies",
     Price: 45.99,
     IsAllStar: false,
+    Stock: 3,
   },
   {
     Name: "Jayson Tatum",
@@ -22,6 +24,7 @@ const figurine = [
     Team: "Boston Celtics",
     Price: 49.99,
     IsAllStar: false,
+    Stock: 5,
   },
   {
     Name: "Ausar Thompson",
@@ -30,6 +33,7 @@ const figurine = [
     Team: "Detroit Pistons",
     Price: 27.99,
     IsAllStar: false,
+    Stock: 2,
   },
   {
     Name: "Luka Doncic",
@@ -38,6 +42,7 @@ const figurine = [
     Team: "Los Angeles Lakers",
     Price: 99.99,
     IsAllStar: true,
+    Stock: 4,
   },
   {
     Name: "Jalen Duren",
@@ -46,6 +51,7 @@ const figurine = [
     Team: "Detroit Pistons",
     Price: 35.45,
     IsAllStar: true,
+    Stock: 3,
   },
   {
     Name: "Victor Wembanyama",
@@ -54,6 +60,7 @@ const figurine = [
     Team: "San Antonio Spurs",
     Price: 123.33,
     IsAllStar: true,
+    Stock: 2,
   },
   {
     Name: "Shai Gilgeous-Alexander",
@@ -62,6 +69,7 @@ const figurine = [
     Team: "Oklahoma City Thunder",
     Price: 110.22,
     IsAllStar: true,
+    Stock: 3,
   },
   {
     Name: "Jalen Brunson",
@@ -70,6 +78,7 @@ const figurine = [
     Team: "New York Knicks",
     Price: 92.87,
     IsAllStar: true,
+    Stock: 4,
   },
   {
     Name: "Kevin Durant",
@@ -78,6 +87,7 @@ const figurine = [
     Team: "Houston Rockets",
     Price: 85.67,
     IsAllStar: true,
+    Stock: 5,
   },
   {
     Name: "Donovan Mitchell",
@@ -86,6 +96,7 @@ const figurine = [
     Team: "Cleveland Cavaliers",
     Price: 78.99,
     IsAllStar: true,
+    Stock: 3,
   },
   {
     Name: "Jalen Johnson",
@@ -94,6 +105,7 @@ const figurine = [
     Team: "Atlanta Hawks",
     Price: 65.99,
     IsAllStar: true,
+    Stock: 2,
   },
   {
     Name: "Nikola Jokic",
@@ -102,6 +114,7 @@ const figurine = [
     Team: "Denver Nuggets",
     Price: 120.99,
     IsAllStar: true,
+    Stock: 4,
   },
   {
     Name: "Chet Holmgren",
@@ -110,6 +123,7 @@ const figurine = [
     Team: "Oklahoma City Thunder",
     Price: 20.99,
     IsAllStar: true,
+    Stock: 3,
   },
   {
     Name: "Tyler Herro",
@@ -118,6 +132,7 @@ const figurine = [
     Team: "Miami Heat",
     Price: 30.99,
     IsAllStar: false,
+    Stock: 2,
   },
   {
     Name: "Mikal Bridges",
@@ -126,6 +141,7 @@ const figurine = [
     Team: "New York Knicks",
     Price: 25.99,
     IsAllStar: false,
+    Stock: 3,
   },
   {
     Name: "Cooper Flagg",
@@ -134,6 +150,7 @@ const figurine = [
     Team: "Dallas Mavericks",
     Price: 132.73,
     IsAllStar: false,
+    Stock: 2,
   },
   {
     Name: "Jalen Williams",
@@ -142,6 +159,7 @@ const figurine = [
     Team: "Oklahoma City Thunder",
     Price: 76.11,
     IsAllStar: false,
+    Stock: 3,
   },
   {
     Name: "Patrick Williams",
@@ -150,6 +168,7 @@ const figurine = [
     Team: "Chicago Bulls",
     Price: 15.99,
     IsAllStar: false,
+    Stock: 2,
   },
   {
     Name: "Jabari Smith Jr.",
@@ -158,20 +177,39 @@ const figurine = [
     Team: "Houston Rockets",
     Price: 22.99,
     IsAllStar: false,
+    Stock: 3,
   },
 ];
 
 const cart = {};
 
-function shoppingcart(stuff) {
-  let total = 0;
+const discount = {
+  save10: 0.1,
+  save20: 0.2,
+  save50: 0.5,
+};
 
-  if (cart[stuff.name]) {
+let total = 0;
+function shoppingcart(stuff) {
+  if (cart[stuff.Name]) {
     cart[stuff.Name].qty++;
   } else {
     cart[stuff.Name] = stuff;
   }
-}
+
+  total = 0;
+  for (let shop in cart) {
+    let item = cart[shop];
+    total += item.Price * item.qty;
+  }
+  if (cart[stuff.Name]) {  //fix tm
+    figurine[18].Stock = figurine[18].Stock - stuff.qty;
+    console.log(`remaining stock left is ${figurine[18].Stock}`);
+  else {
+    if (stuff.qty > figurine[18].Stock)
+      console.log("sorry")
+  }
+  }
 
 shoppingcart({
   Name: "Patrick Williams",
@@ -184,3 +222,4 @@ shoppingcart({
 });
 
 console.log(cart);
+console.log(total);
