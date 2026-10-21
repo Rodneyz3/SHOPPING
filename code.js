@@ -167,10 +167,20 @@ function shoppingcart(stuff) {
   let total = 0;
 
   if (cart[stuff.name]) {
-    cart[stuff.name].qty++;
+    cart[stuff.Name].qty++;
   } else {
-    cart[stuff.name] = stuff;
+    cart[stuff.Name] = stuff;
   }
 }
 
-shoppingcart({ Name: "Jalen Williams", pri });
+shoppingcart({
+  Name: "Patrick Williams",
+  Position: "PF",
+  PPG: 7,
+  Team: "Chicago Bulls",
+  Price: 15.99,
+  IsAllStar: false,
+  qty: 2,
+});
+
+console.log(cart);
