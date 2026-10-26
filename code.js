@@ -190,26 +190,52 @@ const discount = {
 };
 
 let total = 0;
+let activeDiscount = null;
+
 function shoppingcart(stuff) {
-  if (cart[stuff.Name]) {
-    cart[stuff.Name].qty++;
-  } else {
-    cart[stuff.Name] = stuff;
+  let storeItem = null;
+  for (let i = 0; i < figurine.length; i++) {
+    if (figurine[i].Name === stuff.Name) {
+      storeItem = figurine[i];
+      break;
+    }
   }
 
+  if (stuff.qty <= storeItem.Stock) {
+    storeItem.Stock = storeItem.Stock - stuff.qty;
+    console.log(`remaining stock left for ${stuff.Name} is ${storeItem.Stock}`);
+
+    if (cart[stuff.Name]) {
+      cart[stuff.Name].qty += stuff.qty;
+    } else {
+      cart[stuff.Name] = stuff;
+    }
+  } else {
+    console.log(
+      `Sorry, cannot add ${stuff.qty} pf ${stuff.Name}. Only ${storeItem.Stock} left in stock`,
+    );
+    return;
+  }
+  if (stuff.discountCode) {
+    if (activeDiscount !== null) {
+      console.log("opnlt one discount code can be appllied");
+    } else if (discount[stuff.discountCode]) {
+      activeDiscount = stuff.discountCode;
+      console.log(`Discount code ${activeDiscount} applied`);
+    } else {
+      console.log("sorry invalid code: ${stuff.discountCode}");
+    }
+  }
   total = 0;
   for (let shop in cart) {
     let item = cart[shop];
     total += item.Price * item.qty;
   }
-  if (cart[stuff.Name]) {  //fix tm
-    figurine[18].Stock = figurine[18].Stock - stuff.qty;
-    console.log(`remaining stock left is ${figurine[18].Stock}`);
-  else {
-    if (stuff.qty > figurine[18].Stock)
-      console.log("sorry")
+
+  if (activeDiscount !== null) {
+    total = total - total * discount[activeDiscount];
   }
-  }
+}
 
 shoppingcart({
   Name: "Patrick Williams",
@@ -219,7 +245,8 @@ shoppingcart({
   Price: 15.99,
   IsAllStar: false,
   qty: 2,
+  discountCode: "save10",
 });
 
 console.log(cart);
-console.log(total);
+console.log(`Yo this is the total ${total}`);
