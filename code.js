@@ -212,7 +212,7 @@ function shoppingcart(stuff) {
     }
   } else {
     console.log(
-      `Sorry, cannot add ${stuff.qty} pf ${stuff.Name}. Only ${storeItem.Stock} left in stock`,
+      `Sorry, cannot add ${stuff.qty} of ${stuff.Name}. Only ${storeItem.Stock} left in stock`,
     );
     return;
   }
