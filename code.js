@@ -238,15 +238,28 @@ function shoppingcart(stuff) {
 }
 
 shoppingcart({
+  Name: "Copper Flagg",
+  Position: "SF",
+  PPG: 21,
+  Team: "Dallas Mavericks",
+  Price: 132.73,
+  IsAllStar: false,
+  qty: 1,
+  discountCode: "save10",
+});
+
+console.log(cart);
+
+shoppingcart({
   Name: "Patrick Williams",
   Position: "PF",
   PPG: 7,
   Team: "Chicago Bulls",
   Price: 15.99,
   IsAllStar: false,
-  qty: 2,
+  qty: 1,
   discountCode: "save10",
 });
-
 console.log(cart);
+
 console.log(`Yo this is the total ${total}`);
