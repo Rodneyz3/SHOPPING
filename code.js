@@ -238,7 +238,7 @@ function shoppingcart(stuff) {
 }
 
 shoppingcart({
-  Name: "Copper Flagg",
+  Name: "Cooper Flagg",
   Position: "SF",
   PPG: 21,
   Team: "Dallas Mavericks",
