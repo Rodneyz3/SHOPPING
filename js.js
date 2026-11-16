@@ -206,14 +206,14 @@ function inject(item) {
   container.insertAdjacentHTML(
     "beforeend",
     `<div class="card">
-      <h1>player</h1>
-      <p>Team: team name</p>
-      <p>Position: position</p>
-      <p>PPG: #</p>
-      <p>Price: $</p>
-      <p>Stock: #</p>
-      <p>IsAllStar: #</p>
-      <img src="image.jpg" alt="player image">
+      <h1>${item.Name}</h1>
+      <p>Team: ${item.Team}</p>
+      <p>Position: ${item.Position}</p>
+      <p>PPG: ${item.PPG}</p>
+      <p>Price: $${item.Price}</p>
+      <p>Stock: ${item.Stock}</p>
+      <p>IsAllStar: ${item.IsAllStar}</p>
+      <img src="${item.img}" alt="${item.Name}">
       <button class="add-btn">Add to Cart</button>
     </div>`,
   );
@@ -237,4 +237,4 @@ function showItems(list) {
   setupCardButtons();
 }
 
-showItems(figurines);
+showItems(figurine);
