@@ -201,6 +201,7 @@ const figurine = [
   },
 ];
 
+const container = document.querySelector(".container");
 function inject(item) {
   container.insertAdjacentHTML(
     "beforeend",
@@ -218,7 +219,16 @@ function inject(item) {
   );
 }
 
-const container = document.querySelector(".container");
+function setupCardButtons() {
+  const buttons = document.querySelectorAll(".add-btn");
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const index = btn.getAttribute("data-index");
+      console.log("added to cart:", figurine[index].Name);
+    });
+  });
+}
+
 function showItems(list) {
   list.forEach((item) => {
     let original = figurine.indexOf(item);
@@ -226,3 +236,5 @@ function showItems(list) {
   });
   setupCardButtons();
 }
+
+showItems(figurines);
