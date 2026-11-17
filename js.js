@@ -232,7 +232,7 @@ function setupCardButtons() {
 function showItems(list) {
   list.forEach((item) => {
     let original = figurine.indexOf(item);
-    inject(item, original);
+    inject(item, index);
   });
   setupCardButtons();
 }
