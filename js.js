@@ -214,7 +214,7 @@ function inject(item) {
       <p>Stock: ${item.Stock}</p>
       <p>IsAllStar: ${item.IsAllStar}</p>
       <img src="${item.img}" alt="${item.Name}">
-      <button class="add-btn" data-index="${index}">Add to Cart</button>
+      <button class="add-btn">Add to Cart</button>
     </div>`,
   );
 }
@@ -232,7 +232,7 @@ function setupCardButtons() {
 function showItems(list) {
   list.forEach((item) => {
     let original = figurine.indexOf(item);
-    inject(item, index);
+    inject(item, original);
   });
   setupCardButtons();
 }
