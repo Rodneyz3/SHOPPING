@@ -1,13 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Creepster&display=swap");
 
+
 body,
-html
-*{
+html,
+* {
   font-size: 10px;
   box-sizing: border-box;
-  margin:0;
-  padding:0;
+  margin: 0;
+  padding: 0;
 }
+
 
 body {
   background-color: #1d232a;
@@ -15,16 +17,248 @@ body {
   font-family: ui-sans-serif, system-ui, sans-serif;
   font-size: 1.6rem;
   line-height: 1.5;
+  padding: 2rem;
 }
+
 
 header {
   text-align: center;
-  margin-bottom:24px;
+  margin-bottom: 3rem;
 }
+
 
 header h1 {
-  margin-bottom: 14px;
-  color: #1d428a;
+  font-size: 4rem;
+  margin-bottom: 1.6rem;
+  color: #4f86f7;
+  letter-spacing: 0.1rem;
 }
 
-.
+
+
+
+.filter-button {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+
+.filter-button button {
+  background-color: #2a323c;
+  color: #ecf9ff;
+  border: 1px solid #3d4856;
+  padding: 0.8rem 1.6rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+
+.filter-button button:hover {
+  background-color: #1d428a;
+  border-color: #4f86f7;
+}
+
+
+.filter-button button:active {
+  transform: scale(0.97);
+}
+
+
+
+
+.store-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 2.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+
+
+
+.container {
+  flex: 3;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 2rem;
+}
+
+
+.card {
+  background-color: #2a323c;
+  border: 1px solid #3d4856;
+  border-radius: 1rem;
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s;
+}
+
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+
+.card h1 {
+  font-size: 2rem;
+  color: #ffffff;
+  margin-bottom: 0.8rem;
+}
+
+
+.card p {
+  font-size: 1.4rem;
+  color: #cbd5e1;
+  margin-bottom: 0.4rem;
+}
+
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 0.6rem;
+  margin: 1.2rem 0;
+  background-color: #1d232a;
+}
+
+
+.add-btn {
+  background-color: #c8102e;
+  color: #ffffff;
+  border: none;
+  padding: 1rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.2s;
+}
+
+
+.add-btn:hover {
+  background-color: #a00d24;
+}
+
+
+
+
+.cart-selection {
+  flex: 1;
+  min-width: 300px;
+  background-color: #2a323c;
+  border: 1px solid #3d4856;
+  border-radius: 1rem;
+  padding: 2rem;
+  position: sticky;
+  top: 2rem;
+}
+
+
+.cart-selection h2 {
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #3d4856;
+}
+
+
+#cart-item {
+  min-height: 8rem;
+  margin-bottom: 2rem;
+}
+
+
+.empty-cart {
+  font-size: 1.4rem;
+  color: #94a3b8;
+  font-style: italic;
+}
+
+
+.discount-box {
+  margin-bottom: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #3d4856;
+}
+
+
+.discount-box label {
+  display: block;
+  font-size: 1.4rem;
+  margin-bottom: 0.6rem;
+}
+
+
+.discount-row {
+  display: flex;
+  gap: 0.8rem;
+}
+
+
+#discount-input {
+  flex: 1;
+  padding: 0.8rem;
+  font-size: 1.4rem;
+  border-radius: 0.5rem;
+  border: 1px solid #3d4856;
+  background-color: #1d232a;
+  color: #ecf9ff;
+}
+
+
+#apply-discount-btn {
+  background-color: #1d428a;
+  color: #ffffff;
+  border: none;
+  padding: 0.8rem 1.4rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+
+#apply-discount-btn:hover {
+  background-color: #2856b3;
+}
+
+
+#discount-msg {
+  font-size: 1.3rem;
+  margin-top: 0.6rem;
+  color: #4ade80;
+}
+
+
+
+
+.cart-totals {
+  border-top: 1px solid #3d4856;
+  padding-top: 1.5rem;
+}
+
+
+.cart-totals p {
+  font-size: 1.5rem;
+  margin-bottom: 0.6rem;
+  color: #cbd5e1;
+}
+
+
+#total-price {
+  font-size: 2rem;
+  margin-top: 1rem;
+  color: #ffffff;
+}
+
