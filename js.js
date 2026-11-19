@@ -202,10 +202,14 @@ const figurine = [
 ];
 
 const container = document.querySelector(".container");
-function inject(item) {
+
+let cart = {};
+let discountPercent = 0;
+
+function inject(item, index) {
   container.insertAdjacentHTML(
     "beforeend",
-    `<div class="card">
+    `<div class="card" data-item="${index}">
       <h1>${item.Name}</h1>
       <p>Team: ${item.Team}</p>
       <p>Position: ${item.Position}</p>
