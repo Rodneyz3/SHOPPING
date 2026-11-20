@@ -202,6 +202,10 @@ const figurine = [
 ];
 
 const container = document.querySelector(".container");
+const cartContainer = document.querySelector("#cart-item");
+const subtotal = document.querySelector("#subtotal-price");
+const discount = document.querySelector("#discount-amount");
+const totalEl = document.querySelector("#total-price");
 
 let cart = {};
 let discountPercent = 0;
@@ -214,11 +218,11 @@ function inject(item, index) {
       <p>Team: ${item.Team}</p>
       <p>Position: ${item.Position}</p>
       <p>PPG: ${item.PPG}</p>
-      <p>Price: $${item.Price}</p>
+      <p>Price: $${item.Price.toFixed(2)}</p>
       <p>Stock: ${item.Stock}</p>
       <p>IsAllStar: ${item.IsAllStar}</p>
       <img src="${item.img}" alt="${item.Name}">
-      <button class="add-btn">Add to Cart</button>
+      <button class="add-btn" data-index="${index}">Add to Cart</button>
     </div>`,
   );
 }
@@ -228,12 +232,90 @@ function setupCardButtons() {
   buttons.forEach((btn) => {
     btn.addEventListener("click", () => {
       const index = btn.getAttribute("data-index");
-      console.log("added to cart:", figurine[index].Name);
+      addToCart(index);
     });
   });
 }
 
+function addToCart(index) {
+  const item = figurine[index];
+  const currentQty = cart[index] || 0;
+
+  if (currentQty >= item.Stock) {
+    alert(`Only ${item.Stock} of ${item.Name} in stock!`);
+    return;
+  }
+
+  cart[index] = currentQty + 1;
+  renderCart();
+}
+
+function removeFromCart(index) {
+  if (!cart[index]) return;
+
+  cart[index] -= 1;
+  if (cart[index] <= 0) {
+    delete cart[index];
+  }
+  renderCart();
+}
+
+function renderCart() {
+  cartContainer.innerHTML = "";
+  const cartKeys = Object.keys(cart);
+
+  if (cartKeys.length === 0) {
+    cartContainer.innerHTML = `<p class="empty-cart">Cart is empty.</p>`;
+    updateTotals(0);
+    return;
+  }
+
+  let subtotal = 0;
+
+  cartKeys.forEach((index) => {
+    const item = figurine[index];
+    const qty = cart[index];
+    const itemTotal = item.Price * qty;
+    subtotal += itemTotal;
+
+    cartContainer.insertAdjacentHTML(
+      "beforeend",
+      `<div class="cart-row">
+        <p><strong>${item.Name}</strong> - $${item.Price.toFixed(2)} x ${qty} ($${itemTotal.toFixed(2)})</p>
+        <div class="cart-controls">
+          <button class="remove-btn" data-index="${index}">-</button>
+          <button class="plus-btn" data-index="${index}">+</button>
+        </div>
+      </div>`,
+    );
+  });
+
+  document.querySelectorAll(".remove-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      removeFromCart(btn.getAttribute("data-index"));
+    });
+  });
+
+  document.querySelectorAll(".plus-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      addToCart(btn.getAttribute("data-index"));
+    });
+  });
+
+  updateTotals(subtotal);
+}
+
+function updateTotals(subtotal) {
+  const discountAmount = subtotal * (discountPercent / 100);
+  const total = subtotal - discountAmount;
+
+  subtotal.textContent = `Subtotal: $${subtotal.toFixed(2)}`;
+  discount.textContent = `Discount: -$${discountAmount.toFixed(2)}`;
+  totalEl.textContent = `Total: $${total.toFixed(2)}`;
+}
+
 function showItems(list) {
+  container.innerHTML = "";
   list.forEach((item) => {
     let original = figurine.indexOf(item);
     inject(item, original);
@@ -242,3 +324,4 @@ function showItems(list) {
 }
 
 showItems(figurine);
+``;
