@@ -206,14 +206,19 @@ const cartContainer = document.querySelector("#cart-item");
 const subtotal = document.querySelector("#subtotal-price");
 const discount = document.querySelector("#discount-amount");
 const totalEl = document.querySelector("#total-price");
+// ok so we save the location where those specific boxs are displayed in variables like container and subtotal so
+// we can add and manipulate it however we want
 
 let cart = {};
 let discountPercent = 0;
+// cart is a place where we store M and it's value. For example Ja morant, which has the posiiton of 1 in our figurine array
+// would be {1:#}, # would depend on how many times someone ordered Ja morant. For example {1:2, 2:0, 3:3, 4:4, 5:0 and so on}
+// For discount Percent I am just establishing a variable with the value of 0 so I can use later.
 
 function inject(item, index) {
   container.insertAdjacentHTML(
     "beforeend",
-    `<div class="card" data-item="${index}">
+    `<div class="card">
       <h1>${item.Name}</h1>
       <p>Team: ${item.Team}</p>
       <p>Position: ${item.Position}</p>
@@ -226,38 +231,78 @@ function inject(item, index) {
     </div>`,
   );
 }
+// Ok so this is an function call inject. We have two perimeter, item, which we got from the showItems function
+// it is is the information needed to make every single card. We also have index, which we save in data-index, to use for later
+// "beforeend" makes it so each card after each card made in the past.
 
 function setupCardButtons() {
   const buttons = document.querySelectorAll(".add-btn");
   buttons.forEach((btn) => {
     btn.addEventListener("click", () => {
-      const index = btn.getAttribute("data-index");
-      addToCart(index);
+      const M = btn.getAttribute("data-index");
+      addToCart(M);
     });
   });
 }
 
-function addToCart(index) {
-  const item = figurine[index];
-  const currentQty = cart[index] || 0;
+function showItems(list) {
+  container.innerHTML = "";
+  list.forEach((item) => {
+    let ValueForTheIndex = figurine.indexOf(item);
+    inject(item, ValueForTheIndex);
+  });
+  setupCardButtons();
+}
+// ok so, the list variable is our figurine array, we do
+// for each, and making each individual object in our array into
+// item. we then use that item variable(for example name:ja ppg:20 team:...)
+// to make each card one by one. also indexOf is a built in function that
+// finds each item's position in our figurine arrary( for example
+// ja morant is 1 in our array. We keep track of this so i can add and remove stuff easier)
+
+function addToCart(M) {
+  const item = figurine[M];
+  const currentQty = cart[M] || 0;
 
   if (currentQty >= item.Stock) {
     alert(`Only ${item.Stock} of ${item.Name} in stock!`);
     return;
   }
 
-  cart[index] = currentQty + 1;
+  cart[M] = currentQty + 1;
+  renderCart();
+}
+//Ok this might be a little confusing cuz I cooked too hard. So the function addToCart had perimeter M(the position of a card in
+// the figurine array), which we got
+// when the user clicks a card's button. That card's info,such as the name,ppg, and team gets stored in variable item which we
+// use later. and for the second line, currentQty checks if that specific card is already in our website cart area. So if
+// the user haven't ordered anything, CurrentQty would be false/undefined, and I made so if it is false,
+// it is automatically 0 .... Ex: {1:0}
+// And if that card is already in the cart(granted that CurrentQty would have had to be false at some point, making it 0 and making it
+// possible to add numbers to it) Current Qty would become the value of M. For example {1:2}(Ja morant is 1 in our figurine arrary
+// and has a value of 2(meaning the user alr ordered 2 Ja morants) Current QTY would = 2). Now that currentQty has a value, it passes
+// to the next line. It checks if CurrentQty is equal to or exceeded the amount of stock A card has(Ja morant has 5 stocks). If it is more
+// we alert the user we ran out of stock. if it less, we move on to the next line. Cart(M) = currentQty + 1.
+//Cart[1](equal to 2) = currentQty( which is also Cart[1], value of 2) + 1  We make it so when the user adds a card, we change the value of
+// M in cart to be 1 greater.
+
+function removeFromCart(M) {
+  if (!cart[M]) return;
+
+  cart[M] -= 1;
+  if (cart[M] <= 0) {
+    delete cart[M];
+  }
   renderCart();
 }
 
-function removeFromCart(index) {
-  if (!cart[index]) return;
+function updateTotals(Amount) {
+  const discountAmount = Amount * (discountPercent / 100);
+  const total = Amount - discountAmount;
 
-  cart[index] -= 1;
-  if (cart[index] <= 0) {
-    delete cart[index];
-  }
-  renderCart();
+  subtotal.textContent = `Subtotal: $${Amount.toFixed(2)}`;
+  discount.textContent = `Discount: -$${discountAmount.toFixed(2)}`;
+  totalEl.textContent = `Total: $${total.toFixed(2)}`;
 }
 
 function renderCart() {
@@ -272,19 +317,19 @@ function renderCart() {
 
   let subtotal = 0;
 
-  cartKeys.forEach((index) => {
-    const item = figurine[index];
-    const qty = cart[index];
+  cartKeys.forEach((M) => {
+    const item = figurine[M];
+    const qty = cart[M];
     const itemTotal = item.Price * qty;
     subtotal += itemTotal;
 
     cartContainer.insertAdjacentHTML(
       "beforeend",
       `<div class="cart-row">
-        <p><strong>${item.Name}</strong> - $${item.Price.toFixed(2)} x ${qty} ($${itemTotal.toFixed(2)})</p>
+        <p>${item.Name} - $${item.Price.toFixed(2)} x ${qty} ($${itemTotal.toFixed(2)})</p>
         <div class="cart-controls">
-          <button class="remove-btn" data-index="${index}">-</button>
-          <button class="plus-btn" data-index="${index}">+</button>
+          <button class="remove-btn" data-index="${M}">-</button>
+          <button class="plus-btn" data-index="${M}">+</button>
         </div>
       </div>`,
     );
@@ -305,23 +350,67 @@ function renderCart() {
   updateTotals(subtotal);
 }
 
-function updateTotals(subtotal) {
-  const discountAmount = subtotal * (discountPercent / 100);
-  const total = subtotal - discountAmount;
-
-  subtotal.textContent = `Subtotal: $${subtotal.toFixed(2)}`;
-  discount.textContent = `Discount: -$${discountAmount.toFixed(2)}`;
-  totalEl.textContent = `Total: $${total.toFixed(2)}`;
-}
-
-function showItems(list) {
-  container.innerHTML = "";
-  list.forEach((item) => {
-    let original = figurine.indexOf(item);
-    inject(item, original);
-  });
-  setupCardButtons();
-}
-
 showItems(figurine);
-``;
+
+document.querySelector("form").addEventListener("submit", function (event) {
+  event.preventDefault();
+  let x = document.querySelector("#discount-input");
+  let msg = document.querySelector("#discount-msg");
+  let code = x.value.trim().toLowerCase();
+
+  if (code === "save10") {
+    discountPercent = 10;
+    msg.textContent = "10% discount applied!";
+  } else if (code === "save20") {
+    discountPercent = 20;
+    msg.textContent = "20% discount applied!";
+  } else if (code === "save50") {
+    discountPercent = 50;
+    msg.textContent = "50% discount applied!";
+  } else {
+    discountPercent = 0;
+    msg.textContent = "Invalid discount code.";
+  }
+
+  x.value = "";
+  renderCart();
+});
+
+document.querySelector("#btn-all").addEventListener("click", () => {
+  showItems(figurine);
+});
+
+document.querySelector("#btn-allstar").addEventListener("click", () => {
+  const filtered = figurine.filter((item) => item.IsAllStar === true);
+  showItems(filtered);
+});
+
+document.querySelector("#btn-not-allstar").addEventListener("click", () => {
+  const filtered = figurine.filter((item) => item.IsAllStar === false);
+  showItems(filtered);
+});
+
+document.querySelector("#btn-pg").addEventListener("click", () => {
+  const filtered = figurine.filter((item) => item.Position === "PG");
+  showItems(filtered);
+});
+
+document.querySelector("#btn-sg").addEventListener("click", () => {
+  const filtered = figurine.filter((item) => item.Position === "SG");
+  showItems(filtered);
+});
+
+document.querySelector("#btn-sf").addEventListener("click", () => {
+  const filtered = figurine.filter((item) => item.Position === "SF");
+  showItems(filtered);
+});
+
+document.querySelector("#btn-pf").addEventListener("click", () => {
+  const filtered = figurine.filter((item) => item.Position === "PF");
+  showItems(filtered);
+});
+
+document.querySelector("#btn-c").addEventListener("click", () => {
+  const filtered = figurine.filter((item) => item.Position === "C");
+  showItems(filtered);
+});
