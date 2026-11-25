@@ -233,7 +233,8 @@ function inject(item, index) {
 }
 // Ok so this is an function call inject. We have two perimeter, item, which we got from the showItems function
 // it is is the information needed to make every single card. We also have index, which we save in data-index, to use for later
-// "beforeend" makes it so each card after each card made in the past.
+// "beforeend" makes it so each card after each card made in the past. and then the next couple of lines are js the html
+// each card has.  Data index is the value we got from inside the showtime function, which is the ValueForTheIndex variable
 
 function setupCardButtons() {
   const buttons = document.querySelectorAll(".add-btn");
@@ -244,6 +245,9 @@ function setupCardButtons() {
     });
   });
 }
+//Ok for my setupCardButtons function . I am creating the variable button that controls the add button for each card
+// Then For each of those button, I am adding a "click" so that whenever an user clicks on it, it gets the index information from that specific
+// cart and saves it into M. and then addToCart do what its supposed to do.
 
 function showItems(list) {
   container.innerHTML = "";
@@ -258,7 +262,9 @@ function showItems(list) {
 // item. we then use that item variable(for example name:ja ppg:20 team:...)
 // to make each card one by one. also indexOf is a built in function that
 // finds each item's position in our figurine arrary( for example
-// ja morant is 1 in our array. We keep track of this so i can add and remove stuff easier)
+// ja morant is 1 in our array. We keep track of this in ValueForTheIndex so i can add and remove stuff easier)
+// then I inject each of the 20 cards and their inject
+// and then setupCardButton would do what it is supposed to
 
 function addToCart(M) {
   const item = figurine[M];
@@ -285,6 +291,7 @@ function addToCart(M) {
 // we alert the user we ran out of stock. if it less, we move on to the next line. Cart(M) = currentQty + 1.
 //Cart[1](equal to 2) = currentQty( which is also Cart[1], value of 2) + 1  We make it so when the user adds a card, we change the value of
 // M in cart to be 1 greater.
+// and then renderCart do what it is supposed to do.
 
 function removeFromCart(M) {
   if (!cart[M]) return;
@@ -295,6 +302,10 @@ function removeFromCart(M) {
   }
   renderCart();
 }
+// !cart[M] means that if there is nothing in the cart, the function ends and it doesn't do anything. Cart[M] - =1 means that
+// the amount of a card someone orders decreases by one. For example, person ordered 2 ja morant {1:2} and cart[M] -=1 makes it
+//{1:1} Once the key of the object if the cart array becomes 0, it deletes the M(it can always come back with addtoCart).
+// and then it does renderCart
 
 function updateTotals(Amount) {
   const discountAmount = Amount * (discountPercent / 100);
@@ -304,6 +315,8 @@ function updateTotals(Amount) {
   discount.textContent = `Discount: -$${discountAmount.toFixed(2)}`;
   totalEl.textContent = `Total: $${total.toFixed(2)}`;
 }
+// It gets the value made from RenderCart and calculates the discounted amount. The full amount(the value we got from rendercart)
+// - the discountamount gets the real total. the next 3 lines js display the value of the subtotal, discount, and total variable
 
 function renderCart() {
   cartContainer.innerHTML = "";
@@ -349,6 +362,15 @@ function renderCart() {
 
   updateTotals(subtotal);
 }
+//CartContainer.inner Html clears all the existing items in the cart in case of bug or glitch. const cartkey =object.keys(cart
+// just gets the value of all the M in out cart) If there is no M in the cart at all, it js says the cart is empty and updates all
+// the total and subtotal and discount amount into 0. let subtotal = 0 js defines a variable to 0. const item gets the info of all the cards
+// from our Cart(their name, price and etc). const qty gets all the value of M in out cart and saves it( effective the amount
+// the user ordered of each figurine) const ItemTotal calulates the full price of each figurine x the quantity and adds it to subtotal
+// it repeats until it does it for each figurine. the next couple of lines is js me making the + and - button. I didn't make it in the html
+// because i want it to disappear and reappear each time the user add or removes items. the next 2 thing is just if the user clicks those
+// buttons that I made, it does the add and remove function with btn.getAttribute("date-index") being M. updatetotal(subtotal) calulates
+// the real price after discount
 
 showItems(figurine);
 
@@ -414,3 +436,4 @@ document.querySelector("#btn-c").addEventListener("click", () => {
   const filtered = figurine.filter((item) => item.Position === "C");
   showItems(filtered);
 });
+// those just makes it so we delete all the existing card and the showItem function only makes the card with the filtered attribute
